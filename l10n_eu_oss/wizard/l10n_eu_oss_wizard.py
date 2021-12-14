@@ -120,6 +120,7 @@ class L10nEuOssWizard(models.TransientModel):
         self.ensure_one()
         company = self.company_id
         code_bi = self._upgrade_tax_code(country_id, rate, 'TB', company)
+        code_bi.is_base = True
         code_c = self._upgrade_tax_code(country_id, rate, 'C', company)
         return {
             "name": _("OSS for EU to %(country_name)s: %(rate)s") % {
@@ -130,7 +131,7 @@ class L10nEuOssWizard(models.TransientModel):
             "account_collected_id": tax_id.account_collected_id.id,
             "account_paid_id": tax_id.account_paid_id.id,
             "type_tax_use": "sale",
-            "description": "EU-OSS-VAT-{}-{}".format(country_id.code, rate),
+            "description": "{}0".format(country_id.code),
             "oss_country_id": country_id.id,
             "company_id": self.company_id.id,
             "price_include": self.price_include_tax,
